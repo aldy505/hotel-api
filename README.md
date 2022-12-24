@@ -101,6 +101,11 @@ node -r dotenv/config dist/index.js
 Feel free to use the [repository issue](https://github.com/aldy505/hotel-api/issues) or contact me through email
 (see my Github profile page) or [Telegram](https://t.me/aldy505).
 
+## Contribution
+
+Contribution that are meant for completing the API and test suites will be rejected. This repository is meant for
+other people to practice anyway. Other contributions are welcome.
+
 ## License
 
 ```
