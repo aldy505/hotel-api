@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id        Int       @id @default(autoincrement())
+  capacity  Int
+  floor     Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Booking   Booking[] @relation("BookedRoom")
+
+  @@index([capacity])
+}
+
+model Booking {
+  id         Int          @id @default(autoincrement())
+  roomId     Int
+  room       Room         @relation("BookedRoom", references: [id], fields: [roomId])
+  checkIn    DateTime
+  checkOut   DateTime
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  BookingLog BookingLog[] @relation("BookingLog")
+
+  @@index([checkIn, checkOut, roomId])
+}
+
+enum BookingStatus {
+  Booked
+  Canceled
+  CheckedIn
+  CheckedOut
+}
+
+model BookingLog {
+  id        Int           @id @default(autoincrement())
+  bookingId Int
+  booking   Booking       @relation("BookingLog", references: [id], fields: [bookingId])
+  status    BookingStatus
+  createdAt DateTime      @default(now())
+
+  @@index([status])
+}

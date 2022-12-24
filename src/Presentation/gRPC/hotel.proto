@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+service HotelService {
+    rpc Book(BookingRequest) returns (BookingResponse) {}
+    rpc CancelBook(CancelBookRequest) returns (EmptyResponse) {}
+    rpc CheckIn(CheckInRequest) returns (EmptyResponse) {}
+    rpc CheckOut(CheckOutRequest) returns (EmptyResponse) {}
+    rpc SearchRoom(SearchRoomRequest) returns (SearchRoomResponse) {}
+}
+
+message EmptyResponse {}
+
+message BookingRequest {
+    string checkIn = 1;
+    string checkOut = 2;
+    int32 capacity = 3;
+}
+
+message BookingResponse {
+    string bookingId = 1;
+}
+
+message CancelBookRequest {
+    string bookingId = 1;
+}
+
+message CheckInRequest {
+    string bookingId = 1;
+}
+
+message CheckOutRequest {
+    string bookingId = 1;
+}
+
+message SearchRoomRequest {
+    int32 capacity = 1;
+    int32 floor = 2;
+}
+
+message SearchRoomResponse {
+    message Room {
+        int32 id = 1;
+        int32 capacity = 2;
+        int32 floor = 3;
+    }
+
+    repeated Room room = 1;
+}

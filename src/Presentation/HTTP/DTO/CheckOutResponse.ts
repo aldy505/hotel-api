@@ -1,0 +1,1 @@
+export type CheckOutResponse = Record<string, never>
